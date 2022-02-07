@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fantasyName: MyString
+  customerName: MyString
+  taxId: MyString
+  status: false
+  stateRegistration: MyString
+
+two:
+  fantasyName: MyString
+  customerName: MyString
+  taxId: MyString
+  status: false
+  stateRegistration: MyString
