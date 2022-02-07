@@ -10,10 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_12_202949) do
+ActiveRecord::Schema.define(version: 2022_02_07_202256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contacts", force: :cascade do |t|
+    t.string "description"
+    t.string "email"
+    t.string "telephone"
+    t.boolean "main"
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_contacts_on_customer_id"
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string "fantasyName"
+    t.string "customerName"
+    t.string "taxId"
+    t.boolean "status"
+    t.string "stateRegistration"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "customers_operations", id: false, force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.bigint "operation_id", null: false
+    t.index ["customer_id"], name: "index_customers_operations_on_customer_id"
+    t.index ["operation_id"], name: "index_customers_operations_on_operation_id"
+  end
 
   create_table "custumers", force: :cascade do |t|
     t.string "fantasyName"
@@ -25,4 +53,26 @@ ActiveRecord::Schema.define(version: 2021_11_12_202949) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "facilities", force: :cascade do |t|
+    t.string "cep"
+    t.string "complement"
+    t.string "number"
+    t.string "city"
+    t.string "state"
+    t.string "country"
+    t.string "description"
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_facilities_on_customer_id"
+  end
+
+  create_table "operations", force: :cascade do |t|
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "contacts", "customers"
+  add_foreign_key "facilities", "customers"
 end
